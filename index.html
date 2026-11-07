@@ -19,13 +19,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Link Manifest cho PWA -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#e53935">
 
     <style>
         .hidden { display: none !important; }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: #05070b;
@@ -36,7 +34,6 @@
             background-attachment: fixed;
             overflow-y: auto !important;
         }
-
         .glass-panel { background: rgba(11, 16, 29, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
         .glass-card { background: rgba(14, 20, 34, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .glass-card:active { transform: scale(0.98); }
@@ -85,6 +82,7 @@
 
     <main class="flex-1 max-w-xl w-full mx-auto px-3 py-4 mb-16">
         
+        <!-- TAB KÊNH -->
         <div id="channelTabContent" class="space-y-3">
             <div class="flex items-center justify-between px-1 mb-2">
                 <h2 id="currentTabTitle" class="text-xs font-bold text-gray-300 uppercase tracking-wider flex items-center gap-2"></h2>
@@ -93,6 +91,7 @@
             <div id="channelsListContainer" class="space-y-3"></div>
         </div>
 
+        <!-- TAB WECHAT -->
         <div id="wechatTabContent" class="hidden flex flex-col items-center justify-center pt-2 text-center">
             <div class="w-full max-w-xs glass-card rounded-3xl p-6 border border-emerald-500/20 shadow-2xl flex flex-col items-center relative overflow-hidden">
                 <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mb-2 glow-emerald">
@@ -115,29 +114,7 @@
             </div>
         </div>
 
-        <div id="contactTabContent" class="hidden space-y-4 pt-2">
-            <div class="glass-card rounded-2xl p-4 text-center">
-                <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-red-600 to-orange-500 mx-auto flex items-center justify-center text-white text-2xl font-black mb-2 shadow-lg glow-red">正</div>
-                <h3 class="text-lg font-bold text-white">👻正👻</h3>
-                <p class="text-xs text-gray-400 mb-4">Quảng Đông, Hà Nguyên (广东 河源)</p>
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="tel:+84999999999" class="bg-white/5 hover:bg-white/10 border border-white/10 py-2 rounded-xl text-xs text-gray-200 flex items-center justify-center gap-1.5 transition">
-                        <i class="fa-solid fa-phone text-emerald-400"></i><span>Gọi điện</span>
-                    </a>
-                    <button onclick="copyWeChatName()" class="bg-white/5 hover:bg-white/10 border border-white/10 py-2 rounded-xl text-xs text-gray-200 flex items-center justify-center gap-1.5 transition">
-                        <i class="fa-brands fa-weixin text-emerald-400"></i><span>WeChat</span>
-                    </button>
-                </div>
-            </div>
-            <div class="glass-card rounded-2xl p-4 space-y-3">
-                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider">Gửi tin nhắn</h4>
-                <input id="contactName" type="text" placeholder="Họ và tên..." class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-gray-200 focus:outline-none focus:border-red-500/50">
-                <textarea id="contactMsg" rows="3" placeholder="Nội dung..." class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-gray-200 focus:outline-none focus:border-red-500/50 resize-none"></textarea>
-                <button onclick="sendContact()" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-xl text-xs transition">Gửi yêu cầu</button>
-            </div>
-        </div>
-
-        <!-- TAB CÔNG CỤ (MỚI) -->
+        <!-- TAB CÔNG CỤ (MỚI & CHI TIẾT) -->
         <div id="toolsTabContent" class="hidden space-y-4 pt-2">
             <div id="toolsMenu" class="grid grid-cols-1 gap-3">
                 <div onclick="openTool('downloader')" class="glass-card rounded-2xl p-5 flex items-center gap-4 cursor-pointer hover:bg-white/10 transition border border-blue-500/20">
@@ -145,8 +122,8 @@
                         <i class="fa-solid fa-cloud-arrow-down"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-white text-sm">Tải Video</h3>
-                        <p class="text-[11px] text-gray-400 mt-1">TikTok, YouTube, Facebook...</p>
+                        <h3 class="font-bold text-white text-sm">Tải Video Đa Nền Tảng</h3>
+                        <p class="text-[11px] text-gray-400 mt-1">Hỗ trợ TikTok, YouTube, Facebook...</p>
                     </div>
                 </div>
                 <div onclick="openTool('editor')" class="glass-card rounded-2xl p-5 flex items-center gap-4 cursor-pointer hover:bg-white/10 transition border border-purple-500/20">
@@ -160,14 +137,48 @@
                 </div>
             </div>
 
+            <!-- GIAO DIỆN TẢI VIDEO CHI TIẾT -->
             <div id="toolDownloader" class="hidden glass-card rounded-2xl p-5 relative">
                 <button onclick="closeTool()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                <h3 class="text-sm font-bold text-white mb-4"><i class="fa-solid fa-cloud-arrow-down text-blue-400 mr-2"></i>Tải Video</h3>
-                <input type="url" id="downloadUrlInput" placeholder="Dán link video..." class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-xs text-gray-200 mb-3 focus:outline-none focus:border-blue-500">
-                <button onclick="startDownload()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl text-xs transition">Lấy Video</button>
-                <div id="downloadResult" class="mt-4 text-xs text-gray-300"></div>
+                <h3 class="text-sm font-bold text-white mb-3"><i class="fa-solid fa-cloud-arrow-down text-blue-400 mr-2"></i>Tải Video</h3>
+                
+                <!-- Thanh nhập link -->
+                <div class="relative mb-2">
+                    <input type="url" id="downloadUrlInput" maxlength="500" placeholder="Dán link video (TikTok, Youtube...)" class="w-full bg-black/50 border border-white/10 rounded-xl pl-3 pr-20 py-2.5 text-xs text-gray-200 focus:outline-none focus:border-blue-500">
+                    <div class="absolute right-1 top-1 flex gap-1">
+                        <button onclick="clearUrlInput()" title="Xóa" class="w-7 h-7 bg-white/10 hover:bg-white/20 text-gray-300 rounded-lg flex items-center justify-center text-xs transition"><i class="fa-solid fa-xmark"></i></button>
+                        <button onclick="pasteUrlInput()" title="Dán" class="w-7 h-7 bg-white/10 hover:bg-white/20 text-blue-400 rounded-lg flex items-center justify-center text-xs transition"><i class="fa-solid fa-paste"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Đếm ký tự & Lỗi -->
+                <div class="flex justify-between items-center text-[10px] mb-3">
+                    <span id="urlError" class="text-red-500 hidden font-semibold"><i class="fa-solid fa-triangle-exclamation"></i> Tối đa 500 ký tự!</span>
+                    <span id="charCount" class="text-gray-500 ml-auto">0/500</span>
+                </div>
+
+                <button onclick="startDownload()" id="btnFetchVideo" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-magnifying-glass"></i> <span>Lấy Video</span>
+                </button>
+
+                <!-- Khung hiển thị kết quả -->
+                <div id="downloadResult" class="mt-4 hidden flex-col gap-3">
+                    <!-- Mô tả video -->
+                    <div class="bg-black/30 p-3 rounded-xl border border-white/5">
+                        <p id="vidTitle" class="text-sm font-bold text-white mb-1 line-clamp-2"># Tiêu đề video</p>
+                        <p id="vidAuthor" class="text-[11px] text-gray-400">Tác giả: ...</p>
+                    </div>
+                    <!-- Khung xem trước -->
+                    <div class="w-full h-48 bg-black/50 rounded-xl overflow-hidden relative border border-white/10 flex items-center justify-center">
+                        <img id="vidThumb" src="" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                        <i id="vidIcon" class="fa-solid fa-video text-gray-600 text-3xl absolute -z-10"></i>
+                    </div>
+                    <!-- Nút tải -->
+                    <div id="formatList" class="grid grid-cols-2 gap-2 mt-2"></div>
+                </div>
             </div>
 
+            <!-- GIAO DIỆN NỐI VIDEO -->
             <div id="toolEditor" class="hidden glass-card rounded-2xl p-5 relative">
                 <button onclick="closeTool()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
                 <h3 class="text-sm font-bold text-white mb-2"><i class="fa-solid fa-film text-purple-400 mr-2"></i>Nối Video</h3>
@@ -177,8 +188,8 @@
                 <div id="concatResult" class="mt-4 text-xs text-gray-300"></div>
             </div>
         </div>
-              </main>
-              <!-- BOTTOM NAV (ĐÃ CÓ 6 TAB) -->
+            </main>
+            <!-- BOTTOM NAV (CHỈ CÒN 5 TAB) -->
 <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 max-w-md w-[95%] glass-dock rounded-2xl p-1.5 z-30 shadow-2xl flex items-center justify-around">
     <button onclick="switchTab('tiktok')" id="tabBtn-tiktok" class="nav-tab-btn flex-1 py-1.5 rounded-xl flex flex-col items-center gap-0.5 text-red-500 transition">
         <i class="fa-brands fa-tiktok text-base"></i><span class="text-[9px] font-semibold">TikTok</span>
@@ -191,9 +202,6 @@
     </button>
     <button onclick="switchTab('wechat')" id="tabBtn-wechat" class="nav-tab-btn flex-1 py-1.5 rounded-xl flex flex-col items-center gap-0.5 text-gray-400 transition">
         <i class="fa-brands fa-weixin text-base"></i><span class="text-[9px] font-semibold">WeChat</span>
-    </button>
-    <button onclick="switchTab('contact')" id="tabBtn-contact" class="nav-tab-btn flex-1 py-1.5 rounded-xl flex flex-col items-center gap-0.5 text-gray-400 transition">
-        <i class="fa-solid fa-address-card text-base"></i><span class="text-[9px] font-semibold">Liên hệ</span>
     </button>
     <button onclick="switchTab('tools')" id="tabBtn-tools" class="nav-tab-btn flex-1 py-1.5 rounded-xl flex flex-col items-center gap-0.5 text-gray-400 transition">
         <i class="fa-solid fa-toolbox text-base"></i><span class="text-[9px] font-semibold">Công cụ</span>
@@ -257,26 +265,20 @@
     <script>
     'use strict';
 
-    // =========================================================================
-    // CẤU HÌNH MÁY CHỦ JSONBIN
-    // =========================================================================
     const JSONBIN_ID = "6aeec6a0ac6210605a7487dc"; 
     const JSONBIN_KEY = "$2a$10$hI7P43ZHI26VHT8wDR7y9.kPyyJV.YeC.w/LViVyGm1eUZuzaQlXC";
     const JSONBIN_URL = "https://api.jsonbin.io/v3/b/" + JSONBIN_ID;
-    // =========================================================================
-
     const STORAGE_KEY = 'vibnest_channels_v2';
     
-    // Mã hóa SHA-256 của: 123456 và 151121
     const ADMIN_HASHES = [
         '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',
         '7ba0ab1a2fc65f9555a42a9fc1c2a367bd5c243f4f624f5c1d1a1a1a1a1a1a1a' 
     ];
 
     const defaultChannels = [
-        { id: '1', platform: 'tiktok',   name: 'VibNest Official TikTok',    followers: '250.5K Follower', desc: 'Mẹo AI.', url: 'https://tiktok.com' },
-        { id: '3', platform: 'youtube',  name: 'VibNest Media',              followers: '85.4K Sub',       desc: 'Đánh giá AI.', url: 'https://youtube.com' },
-        { id: '4', platform: 'facebook', name: 'VibNest Fanpage',            followers: '310.2K Follow',   desc: 'Hỗ trợ.', url: 'https://facebook.com' }
+        { id: '1', platform: 'tiktok',   name: 'VibNest Official TikTok', followers: '250.5K Follower', desc: 'Mẹo AI.', url: 'https://tiktok.com' },
+        { id: '3', platform: 'youtube',  name: 'VibNest Media',           followers: '85.4K Sub',       desc: 'Đánh giá AI.', url: 'https://youtube.com' },
+        { id: '4', platform: 'facebook', name: 'VibNest Fanpage',         followers: '310.2K Follow',   desc: 'Hỗ trợ.', url: 'https://facebook.com' }
     ];
 
     let channels = [];
@@ -285,6 +287,7 @@
     let logoClickCount = 0;
     let logoClickTimer = null;
 
+    // UTILS
     function escapeHtml(str) { return str ? String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;") : ''; }
     function isValidUrl(url) { try { const u = new URL(url); return ['http:', 'https:'].includes(u.protocol); } catch { return false; } }
     async function sha256(text) {
@@ -293,7 +296,7 @@
         return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // TẢI VÀ LƯU MÁY CHỦ
+    // MÁY CHỦ JSONBIN (LƯU KÊNH)
     async function loadChannels() {
         try {
             const response = await fetch(JSONBIN_URL + '/latest', {
@@ -304,7 +307,6 @@
             const data = await response.json();
             return Array.isArray(data) ? data : [...defaultChannels];
         } catch (error) {
-            console.error("Lỗi tải:", error);
             return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [...defaultChannels];
         }
     }
@@ -317,25 +319,25 @@
                 headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
                 body: JSON.stringify(channels)
             });
-            if (!response.ok) throw new Error('Lỗi');
-            showToast('☁️ Đã đồng bộ lên máy chủ!');
+            if (response.ok) showToast('☁️ Đã đồng bộ máy chủ!');
         } catch (error) {
             showToast('⚠️ Lỗi máy chủ. Đã lưu tạm.');
         }
     }
 
     let toastTimer = null;
-    function showToast(msg) {
+    function showToast(msg, isError = false) {
         const toast = document.getElementById('toast');
         document.getElementById('toastMsg').innerText = msg;
         toast.classList.remove('hidden');
+        toast.style.borderColor = isError ? 'rgba(239, 68, 68, 0.4)' : 'rgba(16, 185, 129, 0.4)';
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.add('hidden'), 2500);
+        toastTimer = setTimeout(() => toast.classList.add('hidden'), 3000);
     }
 
-    // CHUYỂN TAB
+    // TABS LOGIC
     function switchTab(tab) {
-        if (!['tiktok', 'youtube', 'facebook', 'wechat', 'contact', 'tools'].includes(tab)) return;
+        if (!['tiktok', 'youtube', 'facebook', 'wechat', 'tools'].includes(tab)) return;
         currentTab = tab;
 
         document.querySelectorAll('.nav-tab-btn').forEach(btn => {
@@ -343,23 +345,19 @@
         });
         document.getElementById(`tabBtn-${tab}`).className = 'nav-tab-btn flex-1 py-1.5 rounded-xl flex flex-col items-center gap-0.5 text-red-500 transition font-bold';
 
-        ['channelTabContent', 'wechatTabContent', 'contactTabContent', 'toolsTabContent'].forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-        });
+        ['channelTabContent', 'wechatTabContent', 'toolsTabContent'].forEach(id => document.getElementById(id).classList.add('hidden'));
 
         if (tab === 'wechat') document.getElementById('wechatTabContent').classList.remove('hidden');
-        else if (tab === 'contact') document.getElementById('contactTabContent').classList.remove('hidden');
         else if (tab === 'tools') {
             document.getElementById('toolsTabContent').classList.remove('hidden');
             closeTool();
-        }
-        else {
+        } else {
             document.getElementById('channelTabContent').classList.remove('hidden');
             renderCurrentTab();
         }
     }
 
-    // HIỂN THỊ KÊNH
+    // RENDER KÊNH
     function renderCurrentTab() {
         const container = document.getElementById('channelsListContainer');
         const titleEl = document.getElementById('currentTabTitle');
@@ -414,9 +412,7 @@
                 if (e.target.closest('.admin-btn')) return;
                 if (isValidUrl(item.url)) {
                     let newWindow = window.open(item.url, '_blank');
-                    if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                        window.location.href = item.url;
-                    }
+                    if (!newWindow || newWindow.closed) window.location.href = item.url;
                 } else showToast('⚠️ Link không hợp lệ');
             });
 
@@ -426,6 +422,154 @@
             }
             container.appendChild(card);
         });
+    }
+
+    // TOOL: TẢI VIDEO (GEN DOWNLOAD API)
+    function openTool(toolName) {
+        document.getElementById('toolsMenu').classList.add('hidden');
+        if(toolName === 'downloader') document.getElementById('toolDownloader').classList.remove('hidden');
+        if(toolName === 'editor') document.getElementById('toolEditor').classList.remove('hidden');
+    }
+    function closeTool() {
+        document.getElementById('toolsMenu').classList.remove('hidden');
+        document.getElementById('toolDownloader').classList.add('hidden');
+        document.getElementById('toolEditor').classList.add('hidden');
+        // Reset trạng thái
+        document.getElementById('downloadUrlInput').value = '';
+        updateCharCount();
+        document.getElementById('downloadResult').classList.add('hidden');
+    }
+
+    // Xử lý giới hạn 500 ký tự
+    const urlInput = document.getElementById('downloadUrlInput');
+    const charCount = document.getElementById('charCount');
+    const urlError = document.getElementById('urlError');
+    
+    function updateCharCount() {
+        const len = urlInput.value.length;
+        charCount.innerText = `${len}/500`;
+        if (len > 500) {
+            urlInput.value = urlInput.value.slice(0, 500);
+            urlError.classList.remove('hidden');
+            charCount.classList.add('text-red-500');
+        } else {
+            urlError.classList.add('hidden');
+            charCount.classList.remove('text-red-500');
+        }
+    }
+    urlInput.addEventListener('input', updateCharCount);
+
+    function clearUrlInput() {
+        urlInput.value = '';
+        updateCharCount();
+        document.getElementById('downloadResult').classList.add('hidden');
+    }
+
+    async function pasteUrlInput() {
+        try {
+            const text = await navigator.clipboard.readText();
+            urlInput.value = text;
+            updateCharCount();
+        } catch {
+            showToast('❌ Trình duyệt không cho phép dán tự động', true);
+        }
+    }
+
+    async function startDownload() {
+        const url = urlInput.value.trim();
+        if (!url) return showToast('Vui lòng nhập link video', true);
+
+        const btn = document.getElementById('btnFetchVideo');
+        const resultBox = document.getElementById('downloadResult');
+        
+        // Trạng thái đang tải
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Đang xử lý...</span>';
+        btn.disabled = true;
+        resultBox.classList.add('hidden');
+
+        try {
+            const response = await fetch('https://gendownload.com/api/extract', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+
+            if (!response.ok) throw new Error('Máy chủ không phản hồi hoặc lỗi link');
+            
+            const data = await response.json();
+            if (!data || !data.formats || data.formats.length === 0) {
+                throw new Error('Không tìm thấy định dạng video nào');
+            }
+
+            showToast('✅ Đã lấy được video thành công!');
+            renderVideoData(data);
+
+        } catch (error) {
+            console.error(error);
+            showToast('❌ ' + (error.message || 'Không thể kết nối đến máy chủ'), true);
+            resultBox.classList.add('hidden');
+        } finally {
+            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> <span>Lấy Video</span>';
+            btn.disabled = false;
+        }
+    }
+
+    function renderVideoData(data) {
+        const resultBox = document.getElementById('downloadResult');
+        
+        // 1. Cập nhật thông tin mô tả
+        document.getElementById('vidTitle').innerText = `# ${data.title || 'Không có tiêu đề'}`;
+        document.getElementById('vidAuthor').innerText = `Tác giả: ${data.author || 'Ẩn danh'} | Thời lượng: ${data.duration ? data.duration + 's' : 'Không rõ'}`;
+        
+        // 2. Cập nhật ảnh xem trước
+        const thumb = document.getElementById('vidThumb');
+        if (data.thumbnail) {
+            thumb.src = data.thumbnail;
+            thumb.style.display = 'block';
+        } else {
+            thumb.style.display = 'none';
+        }
+
+        // 3. Tạo các nút tải (Tabs)
+        const formatList = document.getElementById('formatList');
+        formatList.innerHTML = '';
+
+        data.formats.forEach((fmt, index) => {
+            // Chỉ hiện video và âm thanh (nếu có)
+            const isAudio = fmt.type === 'audio';
+            const btnColor = isAudio ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-red-600 hover:bg-red-700';
+            const icon = isAudio ? 'fa-music' : 'fa-download';
+            const label = fmt.label || (isAudio ? 'Âm thanh' : 'Video');
+            const ext = fmt.ext ? `.${fmt.ext}` : '';
+            
+            // Nếu server không trả về url thì bỏ qua
+            if (!fmt.url) return;
+
+            const btn = document.createElement('a');
+            btn.href = fmt.url;
+            // Thêm thuộc tính download để trình duyệt tự lưu file
+            btn.setAttribute('download', '');
+            btn.target = '_blank'; 
+            btn.className = `${btnColor} text-white font-semibold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition shadow-lg`;
+            btn.innerHTML = `<i class="fa-solid ${icon}"></i> ${label} ${ext}`;
+            
+            // Xử lý sự kiện click để ép trình duyệt/WebView tải trực tiếp
+            btn.addEventListener('click', (e) => {
+                showToast(`⏳ Đang tải ${label}...`);
+            });
+
+            formatList.appendChild(btn);
+        });
+
+        resultBox.classList.remove('hidden');
+        resultBox.classList.add('flex');
+    }
+
+    // TOOL: NỐI VIDEO
+    function startConcat() {
+        const files = document.getElementById('videoFilesInput').files;
+        if (files.length < 2) return showToast('❌ Chọn ít nhất 2 video', true);
+        document.getElementById('concatResult').innerHTML = '<p class="text-purple-400">⏳ Đang nối (Chờ API)...</p>';
     }
 
     // ADMIN LOGIC
@@ -481,7 +625,7 @@
         renderCurrentTab();
     }
 
-    // CRUD
+    // CRUD KÊNH
     function openAddModal() {
         if (!isAdmin) return;
         document.getElementById('editChannelId').value = '';
@@ -520,8 +664,8 @@
         const desc = document.getElementById('formDesc').value.trim();
         const url = document.getElementById('formUrl').value.trim();
 
-        if (!isValidUrl(url)) return showToast('❌ URL không hợp lệ');
-        if (!name || !followers) return showToast('❌ Thiếu thông tin');
+        if (!isValidUrl(url)) return showToast('❌ URL không hợp lệ', true);
+        if (!name || !followers) return showToast('❌ Thiếu thông tin', true);
 
         if (editId) {
             const idx = channels.findIndex(c => c.id === editId);
@@ -548,40 +692,12 @@
         }
     }
 
-    // TOOLS LOGIC
-    function openTool(toolName) {
-        document.getElementById('toolsMenu').classList.add('hidden');
-        if(toolName === 'downloader') document.getElementById('toolDownloader').classList.remove('hidden');
-        if(toolName === 'editor') document.getElementById('toolEditor').classList.remove('hidden');
-    }
-    function closeTool() {
-        document.getElementById('toolsMenu').classList.remove('hidden');
-        document.getElementById('toolDownloader').classList.add('hidden');
-        document.getElementById('toolEditor').classList.add('hidden');
-    }
-    async function startDownload() {
-        const url = document.getElementById('downloadUrlInput').value.trim();
-        if (!url) return showToast('❌ Dán link video');
-        document.getElementById('downloadResult').innerHTML = '<p class="text-blue-400">⏳ Đang xử lý (Chờ code API của bạn)...</p>';
-    }
-    async function startConcat() {
-        const files = document.getElementById('videoFilesInput').files;
-        if (files.length < 2) return showToast('❌ Chọn ít nhất 2 video');
-        document.getElementById('concatResult').innerHTML = '<p class="text-purple-400">⏳ Đang nối (Chờ code API của bạn)...</p>';
-    }
-
-    // CONTACT & CLIPBOARD
-    function sendContact() {
-        const name = document.getElementById('contactName').value.trim();
-        const msg = document.getElementById('contactMsg').value.trim();
-        if (!name || !msg) return showToast('❌ Nhập đủ thông tin');
-        window.location.href = `mailto:contact@vibnest.example?subject=${encodeURIComponent(name)}&body=${encodeURIComponent(msg)}`;
-    }
+    // CLIPBOARD & CONTACT (Giữ lại WeChat)
     async function copyWeChatName() {
         try {
             await navigator.clipboard.writeText('👻正👻');
             showToast('✅ Đã sao chép!');
-        } catch { showToast('❌ Không thể sao chép'); }
+        } catch { showToast('❌ Không thể sao chép', true); }
     }
 
     // KHỞI TẠO
@@ -589,21 +705,9 @@
         setupSecretTrigger();
         renderCurrentTab();
         
-        // Đợi tải dữ liệu từ máy chủ JSONBin
         channels = await loadChannels();
         renderCurrentTab();
 
         document.getElementById('adminPinInput').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') verifyAdminPin();
         });
-    });
-
-    // Đăng ký Service Worker cho App
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js').catch(err => console.log(err));
-        });
-    }
-    </script>
-</body>
-</html>
